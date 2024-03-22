@@ -1,0 +1,55 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="Fedor Povarov" id="1-0-0-1">
+        <createTable tableName="noun">
+            <column name="noun_id" type="UUID">
+                <constraints primaryKey="true" primaryKeyName="noun_pkey"/>
+            </column>
+            <column name="english" type="VARCHAR(255)"/>
+            <column name="gender" type="VARCHAR(255)"/>
+            <column name="singular_indefinite" type="VARCHAR(255)"/>
+            <column name="singular_definite" type="VARCHAR(255)"/>
+            <column name="plural_indefinite" type="VARCHAR(255)"/>
+            <column name="plural_definite" type="VARCHAR(255)"/>
+            <column name="is_irregular" type="BOOLEAN"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Fedor Povarov" id="1-0-0-2">
+        <createTable tableName="noun_suggestion">
+            <column name="noun_suggestion_id" type="UUID">
+                <constraints primaryKey="true" primaryKeyName="noun_suggestion_pkey"/>
+            </column>
+            <column name="noun_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="suggestion_date" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="is_success" type="BOOLEAN"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Fedor Povarov" id="1-0-0-3">
+        <createTable tableName="simple_word">
+            <column name="simple_word_id" type="UUID">
+                <constraints primaryKey="true" primaryKeyName="simple_word_pkey"/>
+            </column>
+            <column name="english" type="VARCHAR(255)"/>
+            <column name="danish" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Fedor Povarov" id="1-0-0-4">
+        <createTable tableName="verb">
+            <column name="verb_id" type="UUID">
+                <constraints primaryKey="true" primaryKeyName="verb_pkey"/>
+            </column>
+            <column name="english" type="VARCHAR(255)"/>
+            <column name="danish" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Fedor Povarov" id="1-0-0-5">
+        <addForeignKeyConstraint baseColumnNames="noun_id" baseTableName="noun_suggestion"
+                                 constraintName="fk_noun_suggestion_to_noun" deferrable="false"
+                                 initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT"
+                                 referencedColumnNames="noun_id" referencedTableName="noun" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

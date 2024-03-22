@@ -1,0 +1,41 @@
+server:
+  port: 8087
+hibernate:
+  hbm2ddl:
+    auto: none
+spring:
+  jpa:
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+    generate-ddl: false
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      hbm2ddl:
+        auto: validate
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://localhost:5432/danish_language_learning
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+    hikari:
+      connectionTimeout: 30000
+      idleTimeout: 600000
+      maxLifetime: 1800000
+  liquibase:
+    change-log: classpath:/db/master.xml
+vaadin:
+  compatibilityMode: false
+logging:
+  level:
+    org:
+      atmosphere: warn
+management:
+  endpoints:
+    web:
+      exposure:
+        include: env
